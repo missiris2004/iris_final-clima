@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta del Clima - Iris Cedeño</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Estilos Generales */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to bottom, #0093E9, #80D0C7);
+            color: #333;
+        }
+
+        header {
+            background-color: #004d99;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 70%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .input-group button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            background-color: #004d99;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .input-group button:hover {
+            background-color: #0066cc;
+        }
+
+        .weather-details {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .weather-details h3 {
+            color: #004d99;
+            margin-bottom: 10px;
+        }
+
+        .weather-details p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .weather-icon {
+            margin: 10px auto;
+            width: 100px;
+            height: 100px;
+        }
+
+        footer {
+            margin-top: 20px;
+            background-color: #004d99;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .footer-btn {
+            background-color: transparent;
+            border: 1px solid white;
+            color: white !important;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .footer-btn:hover {
+            background-color: white;
+            color: #004d99 !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <i class="fas fa-sun"></i> Consulta del Clima - Iris Cedeño
+    </header>
+
+    <div class="container">
+        <form method="POST" class="input-group">
+            <input type="text" name="city" placeholder="Ingresa el nombre de una ciudad" required>
+            <button type="submit">Consultar</button>
+        </form>
+
+        {% if data %}
+        <div class="weather-details">
+            <h3>Clima en {{ data.name }}</h3>
+            <img src="http://openweathermap.org/img/wn/{{ data.weather[0].icon }}@2x.png" alt="icono del clima" class="weather-icon">
+            <p><strong>Temperatura:</strong> {{ data.main.temp }} °C</p>
+            <p><strong>Nubosidad:</strong> {{ data.clouds.all }}%</p>
+            <p><strong>Latitud:</strong> {{ data.coord.lat }}</p>
+            <p><strong>Longitud:</strong> {{ data.coord.lon }}</p>
+        </div>
+        {% elif error %}
+        <p style="color: red;">{{ error }}</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>
+            © Diseñado por Iris Cedeño - 2024
+            <a href="/cv" class="footer-btn">Ver Currículum</a>
+        </p>
+    </footer>
+</body>
+</html>
